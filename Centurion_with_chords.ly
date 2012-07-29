@@ -8,6 +8,16 @@
 		{
 		\new PianoStaff <<
 			
+			\new ChordNames {
+				\set chordChanges = ##t
+				\set ChordNames.midiMaximumVolume = #0.0
+				\set ChordNames.midiMinimumVolume = #0.0 
+				\chordmode {
+					e1:m e1:m  e1:m e1:m  e1:m e1:m  e1:m e1:m  
+					g1:m g1:m  a1:m e1:m  b1:m c4 b4:m a4:m g4  f1 e1:m
+				}
+			}
+			
 			\new Staff {
 				\set midiInstrument = #"grand piano"
 				\tempo 4 = 71

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+python generate_Centurion.py
+python generate_Centurion.py --chords
+lilypond Centurion*.ly

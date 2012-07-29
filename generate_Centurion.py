@@ -1,4 +1,6 @@
 
+
+ly_source = r"""
 \book {
 	\header {
 		title = "Centurion"
@@ -7,7 +9,17 @@
 	\score {
 		{
 		\new PianoStaff <<
-			
+			%WITH_CHORDS_BEGIN%
+			\new ChordNames {
+				\set chordChanges = ##t
+				\set ChordNames.midiMaximumVolume = #0.0
+				\set ChordNames.midiMinimumVolume = #0.0 
+				\chordmode {
+					e1:m e1:m  e1:m e1:m  e1:m e1:m  e1:m e1:m  
+					g1:m g1:m  a1:m e1:m  b1:m c4 b4:m a4:m g4  f1 e1:m
+				}
+			}
+			%WITH_CHORDS_END%
 			\new Staff {
 				\set midiInstrument = #"grand piano"
 				\tempo 4 = 71
@@ -104,3 +116,20 @@
 		ragged-bottom = ##t
 	}
 }
+"""
+
+import sys, re
+
+chords = False
+if "--chords" in sys.argv:
+	chords = True
+
+if chords:
+	ly_source = re.sub (r"\%WITH_CHORDS_BEGIN\%([^\%]*)\%WITH_CHORDS_END\%", r"\1", ly_source)
+else:
+	ly_source = re.sub (r"\%WITH_CHORDS_BEGIN\%([^\%]*)\%WITH_CHORDS_END\%", "", ly_source)
+
+fs = open ("Centurion"+("_with_chords" if chords else "")+".ly", "w")
+fs.write (ly_source)
+fs.close ()
+
